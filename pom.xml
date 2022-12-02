@@ -17,8 +17,17 @@
 		</license>
 	</licenses>
 	
+	<inceptionYear>2022</inceptionYear>
+	
+	<contributors>
+		<contributor>
+			<name>Ronny Polley</name>
+		</contributor>
+	</contributors>
+	
 	<modules>
 		<module>adventofcode-2022</module>
+		<module>adventofcode-2021</module>
 	</modules>
 	
 	<properties>
