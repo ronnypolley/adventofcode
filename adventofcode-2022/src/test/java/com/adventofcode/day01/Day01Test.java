@@ -1,5 +1,7 @@
 package com.adventofcode.day01;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,12 +12,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class Day01Test {
 
-	@Test
-	void testPart1() throws IOException {
-		Path path = Paths.get("src/test/resources/day01input");
+	@ParameterizedTest
+	@ValueSource(strings = {"day01input_test", "day01input"})
+	void testPart1(String filename) throws IOException {
+		Path path = Paths.get("src/test/resources/"+filename);
 
 		int currentCals = 0;
 		int maxCal = 0;
@@ -28,6 +33,10 @@ class Day01Test {
 			} else {
 				currentCals += Integer.parseInt(cal);
 			}
+		}
+		
+		if (filename.endsWith("test")) {
+			assertEquals(24000, maxCal);
 		}
 		
 		System.out.println(maxCal);
