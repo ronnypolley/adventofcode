@@ -1,55 +1,48 @@
 package com.adventofcode.day03;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.adventofcode.junit.util.AdventOfCodeAssertion.assertAdventOfCode;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+
+import com.adventofcode.junit.extension.AdventOfCodeDailySource;
 
 class Day03Test {
 
 	@ParameterizedTest
-	@ValueSource(strings = {"day03input_test", "day03input"})
-	void testPart1(String filename) throws IOException {
-		Optional<Integer> reduce = Files.lines(Paths.get("src/test/resources/"+filename)).map(rucksack -> {
-			List<Integer> firstHalf = new ArrayList<>(); 
-			firstHalf.addAll(rucksack.chars().boxed().limit(rucksack.length()/2).toList());
-			List<Integer> secondHalf = rucksack.chars().boxed().skip(rucksack.length()/2).toList();
+	@AdventOfCodeDailySource
+	void testPart1(Path filename) throws IOException {
+		var reduce = Files.lines(filename).map(rucksack -> {
+			List<Integer> firstHalf = new ArrayList<>(rucksack.chars().boxed().limit(rucksack.length() / 2).toList());
+			var secondHalf = rucksack.chars().boxed().skip(rucksack.length() / 2).toList();
 			firstHalf.retainAll(secondHalf);
 			return firstHalf.get(0);
-		}).map(ch -> ch > 97 ? ch-96 : ch-64+26).reduce(Integer::sum);
-		
-		if (filename.endsWith("test")) {
-			assertEquals(157, reduce.get());
-		} 
-		System.out.println(reduce.get());
+		}).map(ch -> ch > 97 ? ch - 96 : ch - 64 + 26).reduce(Integer::sum);
+
+		assertAdventOfCode(filename, 157, reduce.get());
 	}
-	
+
 	@ParameterizedTest
-	@ValueSource(strings = {"day03input_test", "day03input"})
-	void testPart2(String filename) throws IOException {
-		AtomicInteger counter = new AtomicInteger();
-		Optional<Integer> reduce = Files.lines(Paths.get("src/test/resources/"+filename)).collect(Collectors.groupingBy(x -> counter.getAndIncrement()/3)).values().stream().map(group -> {
-			
-			List<Integer> firstElve = new ArrayList<>();
-			firstElve.addAll(group.get(0).chars().boxed().toList());
-			firstElve.retainAll(group.get(1).chars().boxed().toList());
-			firstElve.retainAll(group.get(2).chars().boxed().toList());
-			return firstElve.get(0);
-		}).map(ch -> ch > 97 ? ch-96 : ch-64+26).reduce(Integer::sum);
-		
-		if (filename.endsWith("test")) {
-			assertEquals(70, reduce.get());
-		} 
-		System.out.println(reduce.get());
+	@AdventOfCodeDailySource
+	void testPart2(Path filename) throws IOException {
+		var counter = new AtomicInteger();
+		var reduce = Files.lines(filename).collect(Collectors.groupingBy(x -> counter.getAndIncrement() / 3)).values()
+				.stream().map(group -> {
+
+					List<Integer> firstElve = new ArrayList<>(group.get(0).chars().boxed().toList());
+					firstElve.retainAll(group.get(1).chars().boxed().toList());
+					firstElve.retainAll(group.get(2).chars().boxed().toList());
+					return firstElve.get(0);
+				}).map(ch -> ch > 97 ? ch - 96 : ch - 64 + 26).reduce(Integer::sum);
+
+		assertAdventOfCode(filename, 70, reduce.get());
 	}
 
 }
