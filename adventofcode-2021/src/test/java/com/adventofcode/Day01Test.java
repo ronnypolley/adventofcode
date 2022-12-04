@@ -17,8 +17,8 @@ class Day01Test {
 	@ParameterizedTest
 	@AdventOfCodeDailySource
 	void testPart1(Path file) throws IOException {
-		assertAdventOfCode(file, 0,
-				Files.lines(file).mapToInt(Integer::parseInt).reduce(this::findIncreasing).getAsInt());
+		Files.lines(file).mapToInt(Integer::parseInt).reduce(this::findIncreasing);
+		assertAdventOfCode(file, 7, increases);
 	}
 
 	int increases = 0;
@@ -36,6 +36,6 @@ class Day01Test {
 			increases += list.stream().skip(i).limit(3).reduce(0, Integer::sum) < list.stream().skip(i + 1).limit(3)
 					.reduce(0, Integer::sum) ? 1 : 0;
 		}
-		assertAdventOfCode(file, 0, increases);
+		assertAdventOfCode(file, 5, increases);
 	}
 }
