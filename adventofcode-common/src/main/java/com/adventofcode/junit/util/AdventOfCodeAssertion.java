@@ -6,7 +6,11 @@ import java.lang.StackWalker.StackFrame;
 import java.nio.file.Path;
 import java.util.Optional;
 
-public class AdventOfCodeAssertion {
+public final class AdventOfCodeAssertion {
+
+	private AdventOfCodeAssertion() {
+		// empty ctor for util class
+	}
 
 	public static void assertAdventOfCode(Path file, Integer expected, Integer actual) {
 		if (file.toString().endsWith("test")) {
