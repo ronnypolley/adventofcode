@@ -15,7 +15,7 @@ public final class AdventOfCodeAssertion {
 		// empty ctor for util class
 	}
 
-	public static void assertAdventOfCode(Path file, Integer expected, Integer actual) {
+	public static <I extends Object> void assertAdventOfCode(Path file, I expected, I actual) {
 		if (file.toString().endsWith("test")) {
 			assertEquals(expected, actual);
 		} else {
