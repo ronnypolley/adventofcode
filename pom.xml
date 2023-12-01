@@ -30,6 +30,7 @@
 		<module>adventofcode-2021</module>
 		<module>adventofcode-common</module>
 		<module>adventofcode-2015</module>
+		<module>adventofcode-2023</module>
 	</modules>
 	
 	<properties>
