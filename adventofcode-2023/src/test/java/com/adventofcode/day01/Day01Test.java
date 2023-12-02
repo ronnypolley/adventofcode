@@ -16,7 +16,7 @@ class Day01Test {
 	@ParameterizedTest
 	@AdventOfCodeDailySource
 	void testPart1(Path file) throws IOException {
-		assertAdventOfCode(file, 142, compineDigits(Files.lines(file)));
+		assertAdventOfCode(file, 142, combineDigits(Files.lines(file)));
 	}
 	
 	@ParameterizedTest
@@ -27,7 +27,7 @@ class Day01Test {
 
 	private Object prepareForPart2(Path file) throws IOException {
 		// TODO Auto-generated method stub
-		return compineDigits(Files.lines(file).map(line -> line.replaceAll("one", "o1e"))
+		return combineDigits(Files.lines(file).map(line -> line.replaceAll("one", "o1e"))
 				.map(line -> line.replaceAll("two", "t2o"))
 				.map(line -> line.replaceAll("three", "t3e"))
 				.map(line -> line.replaceAll("four", "f4r"))
@@ -38,7 +38,7 @@ class Day01Test {
 				.map(line -> line.replaceAll("nine", "n9e")));
 	}
 
-	private Object compineDigits(Stream<String> file) throws IOException {
+	private Object combineDigits(Stream<String> file) throws IOException {
 		return file.map(line -> line.replaceAll("[a-z]", "")).map(line -> line.length() > 1 ? line : line + line).mapToInt(line -> Integer.parseInt(line.length() <=2 ? line : line.substring(0, 1) + line.substring(line.length()-1))).sum();
 	}
 
