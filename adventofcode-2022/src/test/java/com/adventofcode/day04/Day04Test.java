@@ -1,6 +1,6 @@
 package com.adventofcode.day04;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.adventofcode.junit.util.AdventOfCodeAssertion.assertAdventOfCode;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,11 +22,8 @@ class Day04Test {
 		var overlaps = Files.lines(path).map(this::split).filter(
 				element -> element.get(0).containsAll(element.get(1)) || element.get(1).containsAll(element.get(0)))
 				.count();
-
-		if (path.endsWith("test")) {
-			assertEquals(2, overlaps);
-		}
-		System.out.println(overlaps);
+		
+		assertAdventOfCode(path, 2L, overlaps);
 	}
 
 	@ParameterizedTest
@@ -36,10 +33,7 @@ class Day04Test {
 		var overlaps = Files.lines(filename).map(this::split)
 				.filter(element -> !Collections.disjoint(element.get(0), element.get(1))).count();
 
-		if (filename.endsWith("test")) {
-			assertEquals(4, overlaps);
-		}
-		System.out.println(overlaps);
+		assertAdventOfCode(filename, 4L, overlaps);
 	}
 
 	private List<List<Integer>> split(String string1) {

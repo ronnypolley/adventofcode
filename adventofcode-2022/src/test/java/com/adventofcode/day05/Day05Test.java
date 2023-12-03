@@ -1,5 +1,7 @@
 package com.adventofcode.day05;
 
+import static com.adventofcode.junit.util.AdventOfCodeAssertion.assertAdventOfCode;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,7 +16,6 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import com.adventofcode.junit.extension.AdventOfCodeDailySource;
-import com.adventofcode.junit.util.AdventOfCodeAssertion;
 
 class Day05Test {
 
@@ -39,7 +40,7 @@ class Day05Test {
 					.forEach(i -> stacks.get(operation[2] - 1).push(stacks.get(operation[1] - 1).pop()));
 		});
 
-		AdventOfCodeAssertion.assertAdventOfCode(file, "CMZ",
+		assertAdventOfCode(file, "CMZ",
 				stacks.stream().map(s -> (String) s.peek()).collect(Collectors.joining()));
 	}
 
@@ -62,7 +63,7 @@ class Day05Test {
 			sublist.clear();
 		});
 
-		AdventOfCodeAssertion.assertAdventOfCode(file, "MCD",
+		assertAdventOfCode(file, "MCD",
 				stacks.stream().map(s -> (String) s.get(s.size() - 1)).collect(Collectors.joining()));
 	}
 
