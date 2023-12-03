@@ -32,6 +32,13 @@ class Day03Test {
 		assertAdventOfCode(file, 467835, result.stream().mapToInt(i -> i).sum());
 	}
 
+	/**
+	 * @param file               the input file
+	 * @param skip               function to be used to determine chars to skip
+	 * @param findNumberFunction function to find the numbers based on part1/part2
+	 * @return the list of all relevant numbers
+	 * @throws IOException
+	 */
 	private List<Integer> processFile(Path file, BiFunction<char[], Integer, Boolean> skip,
 			CheckDigitsAround<Integer, Integer, List<String>, Collection<? extends Integer>> findNumberFunction)
 			throws IOException {
@@ -51,30 +58,33 @@ class Day03Test {
 
 	@FunctionalInterface
 	public interface CheckDigitsAround<T, U, V, R> {
+		// this interfaces is used for the check*Around methods to be referenced.
 		R apply(T j, T i, V listOfStrings);
 	}
 
 	private static class Part1Helper {
 
 		private static boolean checkSkipPart1(char[] line, int j) {
+			// skip everything that is a . or a digit, we only want to start with the symbol
 			return line[j] == '.' || Character.isDigit(line[j]);
 		}
 
 		private static Collection<? extends Integer> checkDigitsAround(int j, int i, List<String> readAllLines) {
-			Set<Integer> result = Day3Helper.backTrackForNumbers(j, i, readAllLines);
-
-			return result;
+			// just backtrack to find the numbers
+			return Day3Helper.backTrackForNumbers(j, i, readAllLines);
 		}
 	}
 
 	private static class Part2Helper {
 		private static boolean checkSkipPart2(char[] line, int j) {
+			// skip everything that is not a * as this is gear
 			return line[j] != '*';
 		}
 
 		private static Set<Integer> checkGearAround(int j, int i, List<String> readAllLines) {
 			Set<Integer> result = Day3Helper.backTrackForNumbers(j, i, readAllLines);
 
+			// only count the gears with 2 or more numbers around it.
 			if (result.size() > 1) {
 				return Collections.singleton(result.stream().reduce((n, m) -> n * m).orElse(0));
 			}
