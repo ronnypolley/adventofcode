@@ -9,7 +9,7 @@
 
 	<packaging>pom</packaging>
 
-	<name>Advent Of Code</name>
+	<name>Advent of Code</name>
 	<description>The main project for Advent of Code</description>
 
 	<licenses>
@@ -44,7 +44,6 @@
 		<!-- sonarcloud -->
 		<sonar.organization>ronnypolley</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.projectKey>ronnypolley_adventofcode</sonar.projectKey>
 	</properties>
 
 	<build>
