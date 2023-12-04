@@ -5,6 +5,8 @@ import static com.adventofcode.junit.util.AdventOfCodeAssertion.assertAdventOfCo
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -18,29 +20,29 @@ class Day10Test {
 	@ParameterizedTest
 	@AdventOfCodeDailySource
 	void testPart1(Path file) throws IOException {
+		var sum = 0;
+		var registerValue = 1;
 
-		// TODO: 15120 is the correct answer but in the test the values differ
-		var sum = new AtomicInteger(0);
-		var registerValue = new AtomicInteger(1);
+		var lines = Files.readAllLines(file);
+		var postponed = new LinkedList<Integer>();
+		for (var i = 1; i <= 220; i++) {
 
-		var lines = Files.lines(file)
-				.flatMap(string -> string.startsWith("addx") ? Stream.of("noop", string) : Stream.of(string)).toList();
-
-		IntStream.rangeClosed(1, 220).forEachOrdered(i -> {
-			// System.out.println(i + " " + registerValue.get() + "\t" + lines.get(i));
+			if (i < lines.size() && lines.get(i - 1).startsWith("addx")) {
+				postponed.addAll(List.of(0, Integer.parseInt(lines.get(i - 1).split(" ")[1])));
+			} else {
+				postponed.add(0);
+			}
 
 			switch (i) {
 			case 20, 60, 100, 140, 180, 220:
-				// System.out.println(i + " " + i * registerValue.get());
-				sum.addAndGet(i * registerValue.get());
+				sum += i * registerValue;
 			}
 
-			if (lines.get(i).startsWith("addx")) {
-				registerValue.addAndGet(Integer.parseInt(lines.get(i).split(" ")[1]));
-			}
-		});
+			registerValue += postponed.removeFirst();
 
-		assertAdventOfCode(file, 13140, sum.get());
+		}
+
+		assertAdventOfCode(file, 13140, sum);
 	}
 
 	@ParameterizedTest
@@ -62,6 +64,7 @@ class Day10Test {
 				registerValue.addAndGet(Integer.parseInt(lines.get(i).split(" ")[1]));
 			}
 		});
+		System.out.println();
 		assertAdventOfCode(file, 1L, 1L);
 	}
 
