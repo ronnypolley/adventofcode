@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,35 +19,20 @@ class Day04Test {
 	@ParameterizedTest
 	@AdventOfCodeDailySource
 	void testPart1(Path file) throws IOException {
-		AdventOfCodeAssertion.assertAdventOfCode(file, 13L, mapCards(file).map(Day04Game::retaining).filter(w -> !w.isEmpty()).mapToLong(w -> 1L << w.size() - 1)
-				.sum());
+		AdventOfCodeAssertion.assertAdventOfCode(file, 13L, mapCards(file).map(Day04Game::retaining)
+				.filter(w -> !w.isEmpty()).mapToLong(w -> 1L << w.size() - 1).sum());
 	}
 
 	@ParameterizedTest
 	@AdventOfCodeDailySource
 	void testPart2(Path file) throws IOException {
 		var list = mapCards(file).toList();
-
-		var sum = 0L;
-		for (Day04Game day04Game : list) {
-			sum += computeSum(day04Game, list);
-		}
-
-		AdventOfCodeAssertion.assertAdventOfCode(file, 30L, sum);
-	}
-
-	private long computeSum(Day04Game day04Game2, List<Day04Game> list) {
-		if (day04Game2.retaining().isEmpty()) {
-			return 1L;
-		}
-
-		var sum = 1L;
-
-		for (Day04Game day04Game : list.subList(day04Game2.id + 1, day04Game2.retaining().size() + day04Game2.id + 1)) {
-			sum += computeSum(day04Game, list);
-		}
-
-		return sum;
+		mapCards(file).forEach(g -> {
+			if (!g.retaining().isEmpty()) {
+				list.subList(g.id + 1, g.id + 1 + g.retaining().size()).forEach(l -> l.amount += list.get(g.id).amount);
+			}
+		});
+		AdventOfCodeAssertion.assertAdventOfCode(file, 30L, list.stream().mapToLong(g -> g.amount).sum());
 	}
 
 	private Stream<Day04Game> mapCards(Path file) throws IOException {
@@ -68,6 +52,8 @@ class Day04Test {
 	class Day04Game {
 		int id;
 
+		int amount = 1;
+
 		Set<Integer> winning;
 		Set<Integer> having;
 
@@ -79,7 +65,7 @@ class Day04Test {
 
 		@Override
 		public String toString() {
-			return id + 1 + " " + retaining() + " " + (1L << retaining().size() - 1);
+			return id + 1 + " " + retaining();
 		}
 	}
 
