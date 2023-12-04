@@ -18,6 +18,18 @@ class Day04Test {
 	@ParameterizedTest
 	@AdventOfCodeDailySource
 	void test(Path file) throws IOException {
+//		Files.lines(file).map(s -> s.replaceAll("Card.*:", "")).map(s -> {
+//			String[] split = s.strip().split("\\|");
+//			Day04Game game = new Day04Game();
+//			game.winning = Arrays.stream(split[0].split(" ")).filter(s1 -> !s1.isBlank())
+//					.mapToInt(i -> Integer.valueOf(i.strip())).boxed().collect(Collectors.toCollection(HashSet::new));
+//			game.having = Arrays.stream(split[1].split(" ")).filter(s1 -> !s1.isBlank())
+//					.mapToInt(i -> Integer.valueOf(i.strip())).boxed().collect(Collectors.toCollection(HashSet::new));
+//			return game;
+//		}).map(g -> {
+//			g.winning.retainAll(g.having);
+//			return g.winning;
+//		}).mapToLong(w -> 1L << (w.size() - 1)).forEach(l -> System.out.print(l + " "));
 		long sum = Files.lines(file).map(s -> s.replaceAll("Card.*:", "")).map(s -> {
 			String[] split = s.strip().split("\\|");
 			Day04Game game = new Day04Game();
@@ -29,7 +41,7 @@ class Day04Test {
 		}).map(g -> {
 			g.winning.retainAll(g.having);
 			return g.winning;
-		}).mapToLong(w -> 1L << (w.size() - 1)).sum();
+		}).filter(w -> !w.isEmpty()).mapToLong(w -> 1L << (w.size() - 1)).sum();
 
 		AdventOfCodeAssertion.assertAdventOfCode(file, 13L, sum);
 	}
