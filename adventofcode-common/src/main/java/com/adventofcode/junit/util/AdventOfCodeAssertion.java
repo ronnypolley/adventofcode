@@ -17,8 +17,11 @@ public final class AdventOfCodeAssertion {
 
 	public static <I extends Object> void assertAdventOfCode(Path file, I expected, I actual) {
 		if (file.toString().endsWith("test")) {
+			// if the input is a "test" file, we asset against the given expected value
 			assertEquals(expected, actual);
 		} else {
+			// if it is the real input, we just print the result, as we do not know the
+			// expected value
 			StackWalker.getInstance().walk(in -> in.filter(stack -> stack.getClassName().endsWith("Test")).findFirst())
 					.ifPresent(stack -> logger.error("Actual result for {}#{}: {}", stack.getClassName(),
 							stack.getMethodName(), actual));
