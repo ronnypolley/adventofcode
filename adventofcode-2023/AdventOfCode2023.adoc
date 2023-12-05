@@ -3,8 +3,8 @@
 
 ## https://adventofcode.com/2023/day/1[Day 1] 
 
-- The _"oneight"_ was a nice trap. I fixed this with a little hack replacing the string with first letter + number + last letter.
-+
+The _"oneight"_ was a nice trap. I fixed this with a little hack replacing the string with first letter + number + last letter.
+
 .Replacement code from Day01Test.java
 [source, java, indent=0]
 //include::{sourcepath}/com/adventofcode/day01/Day01Test.java[tags=replace]
@@ -45,9 +45,46 @@ static CubesRevealed mapToMinimalSet(CubesRevealed input1, CubesRevealed input2)
 		}
 ----
  
+## https://adventofcode.com/2023/day/3[Day 3]
+
+Well, mainly working as a product owner, I lack some of the newer features in the programming languages.
+But this is the nice thing on AoC, I can learn :D. 
+I wrote my first ever `FunctionalInterface`:
+
+[source,java]
+----
+@FunctionalInterface
+public interface CheckDigitsAround<T, U, V, R> {
+	// this interfaces is used for the check*Around methods to be referenced.
+	R apply(T j, T i, V listOfStrings);
+}
+----
+
+This I used to have the two methods for finding digits around the symbols.
+As I implemented the first part directly by finding symbols and backtrack around them, the second part was trivial. 
+
+## https://adventofcode.com/2023/day/1[Day 4]
+
+I could use the bitshifting power! The last time I used this, was at the university.
+For the second part, I didn't read the question well, so I used the same computation as in part 1.
+That we only have to find the amount of cards took me some time.
+The first version was a slow recursion variant, that worked. (https://github.com/ronnypolley/adventofcode/blob/aa1433e28557081f34439b2e9f3266b1106711c4/adventofcode-2023/src/test/java/com/adventofcode/day04/Day04Test.java[recursive solution])
+Than I made an iterative one, which was much faster.
+
+.Iternative solution
+[source,java]
+----
+mapCards(file).forEach(g -> {
+	if (!g.retaining().isEmpty()) {
+		// If we have matching numbers, we look into the already created list and add to
+		// each possible card the amount the current card was found.
+		list.subList(g.id + 1, g.id + 1 + g.retaining().size()).forEach(l -> l.amount += list.get(g.id).amount);
+	}
+});
+----
 
 ## Day 5
 
-- First attempt for part 2 used too much memory and Java quitted. I tried to map everything into lists, which were too big here 
-- The second attempt (just burte force computing) took a lot of time. So this is still not the final solution
-- [ ] make part 2 faster
+* First attempt for part 2 used too much memory and Java quitted. I tried to map everything into lists, which were too big here 
+* The second attempt (just burte force computing) took a lot of time. So this is still not the final solution
+** [ ] make part 2 faster
