@@ -7,8 +7,13 @@
 +
 .Replacement code from Day01Test.java
 [source, java, indent=0]
+//include::{sourcepath}/com/adventofcode/day01/Day01Test.java[tags=replace]
 ----
-include::{sourcepath}/com/adventofcode/day01/Day01Test.java[tags=replace]
+return combineDigits(Files.lines(file).map(line -> line.replace("one", "o1e"))
+				.map(line -> line.replace("two", "t2o")).map(line -> line.replace("three", "t3e"))
+				.map(line -> line.replace("four", "f4r")).map(line -> line.replace("five", "f5e"))
+				.map(line -> line.replace("six", "s6x")).map(line -> line.replace("seven", "s7n"))
+				.map(line -> line.replace("eight", "e8t")).map(line -> line.replace("nine", "n9e")));
 ----
 
 ## https://adventofcode.com/2023/day/2[Day 2]
@@ -19,14 +24,25 @@ which were called from streams.
 
 .Part 1 - finding not possible rounds
 [source, java, indent=0]
+//include::{sourcepath}/com/adventofcode/day02/Game.java[tags=part1,indent=0]
 ----
-include::{sourcepath}/com/adventofcode/day02/Game.java[tags=part1,indent=0]
+boolean isPossible(int maxRed, int maxBlue, int maxGreen) {
+		return !rounds.stream().filter(round -> round.blue > maxBlue || round.red > maxRed || round.green > maxGreen)
+				.findFirst().isPresent();
+	}
 ----
 
 .Part 2 - finding minial values per round
 [source, java, indent=0]
+//include::{sourcepath}/com/adventofcode/day02/Game.java[tags=part2,indent=0]
 ----
-include::{sourcepath}/com/adventofcode/day02/Game.java[tags=part2,indent=0]
+static CubesRevealed mapToMinimalSet(CubesRevealed input1, CubesRevealed input2) {
+			var cubesRevealed = new CubesRevealed();
+			cubesRevealed.red = input1.red > input2.red ? input1.red : input2.red;
+			cubesRevealed.green = input1.green > input2.green ? input1.green : input2.green;
+			cubesRevealed.blue = input1.blue > input2.blue ? input1.blue : input2.blue;
+			return cubesRevealed;
+		}
 ----
  
 
