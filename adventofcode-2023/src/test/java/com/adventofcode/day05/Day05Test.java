@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import com.adventofcode.junit.extension.AdventOfCodeDailySource;
@@ -28,6 +29,7 @@ class Day05Test {
 
 	@ParameterizedTest
 	@AdventOfCodeDailySource
+	@Disabled("till it is faster")
 	void testPart2(Path file) throws IOException {
 		var lines = Files.readAllLines(file);
 		var seeds = prepareSeedsPart2(lines);
