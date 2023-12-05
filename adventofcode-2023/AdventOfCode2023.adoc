@@ -1,0 +1,37 @@
+# Reflect AoC 2023 journey
+:sourcepath: src/test/java/
+
+## https://adventofcode.com/2023/day/1[Day 1] 
+
+- The _"oneight"_ was a nice trap. I fixed this with a little hack replacing the string with first letter + number + last letter.
++
+.Replacement code from Day01Test.java
+[source, java, indent=0]
+----
+include::{sourcepath}/com/adventofcode/day01/Day01Test.java[tags=replace]
+----
+
+## https://adventofcode.com/2023/day/2[Day 2]
+
+This one was really straight forward. Nothing special here.
+Added a class for creating the game from the input including and two method for doing the main work, 
+which were called from streams.
+
+.Part 1 - finding not possible rounds
+[source, java, indent=0]
+----
+include::{sourcepath}/com/adventofcode/day02/Game.java[tags=part1,indent=0]
+----
+
+.Part 2 - finding minial values per round
+[source, java, indent=0]
+----
+include::{sourcepath}/com/adventofcode/day02/Game.java[tags=part2,indent=0]
+----
+ 
+
+## Day 5
+
+- First attempt for part 2 used too much memory and Java quitted. I tried to map everything into lists, which were too big here 
+- The second attempt (just burte force computing) took a lot of time. So this is still not the final solution
+- [ ] make part 2 faster
