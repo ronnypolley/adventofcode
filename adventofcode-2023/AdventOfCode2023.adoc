@@ -1,5 +1,5 @@
 # Reflect AoC 2023 journey
-:sourcepath: src/test/java/
+:sourcepath: src/test/java
 
 ## https://adventofcode.com/2023/day/1[Day 1] 
 
