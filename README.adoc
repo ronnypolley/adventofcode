@@ -2,11 +2,11 @@
 
 :url-repo: https://github.com/ronnypolley/adventofcode/blob/main
 
-image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=sqale_rating[Maintainability Rating]
-image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=code_smells[Code Smells]
-image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=ncloc[Lines of Code]
-image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=alert_status[Quality Gate Status]
-image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=bugs[Bugs]
+image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=sqale_rating[Maintainability Rating, link="https://sonarcloud.io/project/overview?id=ronnypolley_adventofcode"]
+image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=code_smells[Code Smells, link="https://sonarcloud.io/project/overview?id=ronnypolley_adventofcode"]
+image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=ncloc[Lines of Code, link="https://sonarcloud.io/project/overview?id=ronnypolley_adventofcode"]
+image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=alert_status[Quality Gate Status, link="https://sonarcloud.io/project/overview?id=ronnypolley_adventofcode"]
+image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=bugs[Bugs, link="https://sonarcloud.io/project/overview?id=ronnypolley_adventofcode"]
 
 
 My Code for www.adventofcode.com
