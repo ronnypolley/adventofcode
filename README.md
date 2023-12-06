@@ -9,3 +9,5 @@ My Code for www.adventofcode.com
 
 ## History
 Started in 2022 with my collegues from IT Sonix custom development GmbH.
+
+[Advent of Code 2022](adventofcode-2022/AdventOfCode2022.MD) 

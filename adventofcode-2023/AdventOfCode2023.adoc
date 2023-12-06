@@ -1,0 +1,96 @@
+# Reflect AoC 2023 journey
+:sourcepath: src/test/java
+
+## https://adventofcode.com/2023/day/1[Day 1] 
+
+The _"oneight"_ was a nice trap. I fixed this with a little hack replacing the string with first letter + number + last letter.
+
+.Replacement code from Day01Test.java
+[source, java, indent=0]
+//include::{sourcepath}/com/adventofcode/day01/Day01Test.java[tags=replace]
+----
+return combineDigits(Files.lines(file).map(line -> line.replace("one", "o1e"))
+				.map(line -> line.replace("two", "t2o")).map(line -> line.replace("three", "t3e"))
+				.map(line -> line.replace("four", "f4r")).map(line -> line.replace("five", "f5e"))
+				.map(line -> line.replace("six", "s6x")).map(line -> line.replace("seven", "s7n"))
+				.map(line -> line.replace("eight", "e8t")).map(line -> line.replace("nine", "n9e")));
+----
+
+## https://adventofcode.com/2023/day/2[Day 2]
+
+This one was really straight forward. Nothing special here.
+Added a class for creating the game from the input including and two method for doing the main work, 
+which were called from streams.
+
+.Part 1 - finding not possible rounds
+[source, java, indent=0]
+//include::{sourcepath}/com/adventofcode/day02/Game.java[tags=part1,indent=0]
+----
+boolean isPossible(int maxRed, int maxBlue, int maxGreen) {
+		return !rounds.stream().filter(round -> round.blue > maxBlue || round.red > maxRed || round.green > maxGreen)
+				.findFirst().isPresent();
+	}
+----
+
+.Part 2 - finding minial values per round
+[source, java, indent=0]
+//include::{sourcepath}/com/adventofcode/day02/Game.java[tags=part2,indent=0]
+----
+static CubesRevealed mapToMinimalSet(CubesRevealed input1, CubesRevealed input2) {
+			var cubesRevealed = new CubesRevealed();
+			cubesRevealed.red = input1.red > input2.red ? input1.red : input2.red;
+			cubesRevealed.green = input1.green > input2.green ? input1.green : input2.green;
+			cubesRevealed.blue = input1.blue > input2.blue ? input1.blue : input2.blue;
+			return cubesRevealed;
+		}
+----
+ 
+## https://adventofcode.com/2023/day/3[Day 3]
+
+Well, mainly working as a product owner, I lack some of the newer features in the programming languages.
+But this is the nice thing on AoC, I can learn :D. 
+I wrote my first ever `FunctionalInterface`:
+
+[source,java]
+----
+@FunctionalInterface
+public interface CheckDigitsAround<T, U, V, R> {
+	// this interfaces is used for the check*Around methods to be referenced.
+	R apply(T j, T i, V listOfStrings);
+}
+----
+
+This I used to have the two methods for finding digits around the symbols.
+As I implemented the first part directly by finding symbols and backtrack around them, the second part was trivial. 
+
+## https://adventofcode.com/2023/day/4[Day 4]
+
+I could use the bitshifting power! The last time I used this, was at the university.
+For the second part, I didn't read the question well, so I used the same computation as in part 1.
+That we only have to find the amount of cards took me some time.
+The first version was a slow recursion variant, that worked. (https://github.com/ronnypolley/adventofcode/blob/aa1433e28557081f34439b2e9f3266b1106711c4/adventofcode-2023/src/test/java/com/adventofcode/day04/Day04Test.java[recursive solution])
+Than I made an iterative one, which was much faster.
+
+.Iternative solution
+[source,java]
+----
+mapCards(file).forEach(g -> {
+	if (!g.retaining().isEmpty()) {
+		// If we have matching numbers, we look into the already created list and add to
+		// each possible card the amount the current card was found.
+		list.subList(g.id + 1, g.id + 1 + g.retaining().size()).forEach(l -> l.amount += list.get(g.id).amount);
+	}
+});
+----
+
+## https://adventofcode.com/2023/day/5[Day 5]
+
+I think I overengineered this a little bit with the Enum and the Maps.
+My first attempt had me map this all serpartly, what is not neccessary.
+So I could reduce the complexity a little bit by concatinating the mappings.
+
+For part 2 my first stupi attempt used too much memory and Java quitted. 
+I tried to map everything into lists, which were too big here. 
+The second attempt (just burte force computing) took a lot of time. 
+
+* [ ] make part 2 faster
