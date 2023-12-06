@@ -1,0 +1,20 @@
+= Advent of Code
+
+:url-repo: https://github.com/ronnypolley/adventofcode/blob/main
+
+image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=sqale_rating[Maintainability Rating]
+image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=code_smells[Code Smells]
+image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=ncloc[Lines of Code]
+image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=alert_status[Quality Gate Status]
+image:https://sonarcloud.io/api/project_badges/measure?project=ronnypolley_adventofcode&metric=bugs[Bugs]
+
+
+My Code for www.adventofcode.com
+
+Mostly I use Java, as this go-to language in my "daily" work.
+
+== History
+Started in 2022 with my collegues from IT Sonix custom development GmbH.
+
+=== Links for the journals of each year
+- {url-repo}/adventofcode-2023/AdventOfCode2023.adoc[Advent of Code 2023]
