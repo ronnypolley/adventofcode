@@ -29,12 +29,10 @@ class Day06Test {
 
 		// just compute the distance by multiple the rest time with the difference of
 		// max time and the "index"
-		AdventOfCodeAssertion
-				.assertAdventOfCode(file, 288L,
-						races.stream()
-								.mapToLong(value -> LongStream.rangeClosed(0, value.time)
-										.map(t -> ((value.time - t) * t)).filter(d -> value.distance < d).count())
-								.reduce((i, j) -> i * j).getAsLong());
+		AdventOfCodeAssertion.assertAdventOfCode(file, 288L,
+				races.stream().mapToLong(race -> LongStream.rangeClosed(0, race.time())
+						.map(t -> ((race.time() - t) * t)).filter(d -> race.distance() < d).count())
+						.reduce((i, j) -> i * j).getAsLong());
 	}
 
 	private String[] part1StringMapping(String l) {
@@ -47,8 +45,8 @@ class Day06Test {
 		var list = exctractActualRaceValuesFromInput(file, this::part2StringMapping);
 		var race = new Race(list.get(0).get(0), list.get(1).get(0));
 
-		AdventOfCodeAssertion.assertAdventOfCode(file, 71503L, LongStream.rangeClosed(0, race.time)
-				.map(t -> ((race.time - t) * t)).filter(d -> race.distance < d).count());
+		AdventOfCodeAssertion.assertAdventOfCode(file, 71503L, LongStream.rangeClosed(0, race.time())
+				.map(t -> ((race.time() - t) * t)).filter(d -> race.distance() < d).count());
 	}
 
 	private String[] part2StringMapping(String l) {
@@ -59,9 +57,6 @@ class Day06Test {
 			throws IOException {
 		return Files.lines(file).map(l -> Arrays.asList(function.apply(l)))
 				.map(l -> l.stream().filter(s -> !s.isBlank()).mapToLong(Long::parseLong).boxed().toList()).toList();
-	}
-
-	record Race(Long time, Long distance) {
 	}
 
 }
