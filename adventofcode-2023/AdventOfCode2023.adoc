@@ -1,4 +1,4 @@
-# Reflect AoC 2023 journey
+= Journal AoC 2023
 :sourcepath: src/test/java
 
 ## https://adventofcode.com/2023/day/1[Day 1] 
@@ -99,7 +99,7 @@ The second attempt (just burte force computing) took a lot of time.
 
 This was really easy one. Just some computing and merging. Easyly be done by using streams.
 It would also be an easy one to write in Haskell, 
-what I already planned this year, but cause of the time (with kids and family and quarterly planning)  not did.
+what I already planned this year, but because of the time (with kids and family and quarterly planning)  not did.
 Used a `record` for the Race class representing the input values.
 
 * [ ] I had the idea of loading the input data through the code, but not sure if the effort is worth it.
