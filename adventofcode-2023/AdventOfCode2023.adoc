@@ -94,3 +94,12 @@ I tried to map everything into lists, which were too big here.
 The second attempt (just burte force computing) took a lot of time. 
 
 * [ ] make part 2 faster
+
+## https://adventofcode.com/2023/day/6[Day 6]
+
+This was really easy one. Just some computing and merging. Easyly be done by using streams.
+It would also be an easy one to write in Haskell, 
+what I already planned this year, but cause of the time (with kids and family and quarterly planning)  not did.
+Used a `record` for the Race class representing the input values.
+
+* [ ] I had the idea of loading the input data through the code, but not sure if the effort is worth it.
