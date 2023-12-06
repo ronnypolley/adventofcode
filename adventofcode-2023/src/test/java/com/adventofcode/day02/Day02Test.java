@@ -16,13 +16,15 @@ class Day02Test {
 	@ParameterizedTest
 	@AdventOfCodeDailySource
 	void testPart1(Path file) throws IOException {
-		AdventOfCodeAssertion.assertAdventOfCode(file, 8, Files.lines(file).map(Game::makeGame).filter(game -> game.isPossible(12, 14, 13)).mapToInt(game -> game.id).sum());
+		AdventOfCodeAssertion.assertAdventOfCode(file, 8, Files.lines(file).map(Day2Game::makeGame)
+				.filter(game -> game.isPossible(12, 14, 13)).mapToInt(Day2Game::id).sum());
 	}
-	
+
 	@ParameterizedTest
 	@AdventOfCodeDailySource
 	void testPart2(Path file) throws IOException {
-		assertAdventOfCode(file, 2286, Files.lines(file).map(Game::makeGame).map(Game::minimalSetOfCubes).mapToInt(game -> game.red*game.green*game.blue).sum());
+		assertAdventOfCode(file, 2286, Files.lines(file).map(Day2Game::makeGame).map(Day2Game::minimalSetOfCubes)
+				.mapToInt(game -> game.red() * game.green() * game.blue()).sum());
 	}
 
 }
