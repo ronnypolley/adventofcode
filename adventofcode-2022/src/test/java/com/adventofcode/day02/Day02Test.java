@@ -4,10 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import com.adventofcode.junit.extension.AdventOfCodeDailySource;
 
 class Day02Test {
 
@@ -23,6 +22,7 @@ class Day02Test {
 			 3, 2, 1
 			 3, 1, 2
 			""")
+	@Disabled("rewrote history to remove real input")
 	void testPart1(int valueX, int valueY, int valueZ) throws IOException {
 		System.out.println(Files.lines(Path.of(fileName)).map(str -> {
 			var split = str.split(" ");
@@ -40,7 +40,7 @@ class Day02Test {
 	}
 
 	@ParameterizedTest
-	@AdventOfCodeDailySource
+	@Disabled("rewrote history to exclude real input")
 	void testPart2(Path file) throws Exception {
 		System.out.println(Files.lines(file).map(str -> {
 			var split = str.split(" ");
