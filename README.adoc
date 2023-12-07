@@ -14,7 +14,7 @@ My Code for www.adventofcode.com
 Mostly I use Java, as this go-to language in my "daily" work.
 
 == History
-Started in 2022 with my collegues from IT Sonix custom development GmbH.
+Started in 2022 with my collegues from https://www.itsonix.eu[IT Sonix Custom Development GmbH].
 
 === Links for the journals of each year
 - {url-repo}/adventofcode-2023/AdventOfCode2023.adoc[Advent of Code 2023]
