@@ -103,3 +103,56 @@ what I already planned this year, but because of the time (with kids and family 
 Used a `record` for the Race class representing the input values.
 
 * [ ] I had the idea of loading the input data through the code, but not sure if the effort is worth it.
+
+== https://adventofcode.com/2023/day/7[Day 7]
+
+Nice one, which was not as complicated as I first thought.
+I had a little typo in the solution for part1 that's why it took longer, than it should:
+I mapped the letters to other codepoints, so that they are ordered correctly. Here I mapped the same number to J and T.
+This worked for the test input, but not for the actual one.
+
+I have a nice little _set_ related method for determining the type.
+For the things, that are not unique I use a method to compute the amount of the card, which is the most used in the hand.
+
+[source, java]
+----
+int getType() {
+	// Five of a kind
+	var count = hand.chars().distinct().count();
+	if (count == 1) {
+		return 7;
+	}
+	if (count == 2) {
+		// 6 for Four of a kind and 5 for full house
+		return countMostCommonCard(hand.chars()).getValue() == 4 ? 6 : 5;
+	}
+	if (count == 3) {
+		// 3 for three of a kind and 2 for two pairs
+		return countMostCommonCard(hand.chars()).getValue() == 3 ? 4 : 3;
+	}
+	// High card
+	if (count == 4) {
+		return 2;
+	}
+	return 1;
+}
+----
+
+In the `countMostCommonCard` method I first used the `HashMap#merge` method, which worked not as I expected.
+
+
+For the second part, I used the brute force approch to find the highest hand with the Jokers.
+As the input was not so big, this worked really good and the code for some more efficent search would be much larger, than the one I have now.
+
+And the Joker just got a smaller number reprenstation now.
+
+[source,java]
+----
+@Override
+protected IntUnaryOperator mapCardsToInts() {
+	return i -> switch (i) {
+	case 74 -> 10;
+	default -> super.mapCardsToInts().applyAsInt(i);
+	};
+}
+----
