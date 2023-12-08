@@ -104,6 +104,7 @@ Used a `record` for the Race class representing the input values.
 
 * [ ] I had the idea of loading the input data through the code, but not sure if the effort is worth it.
 
+
 == https://adventofcode.com/2023/day/7[Day 7]
 
 Nice one, which was not as complicated as I first thought.
@@ -156,3 +157,12 @@ protected IntUnaryOperator mapCardsToInts() {
 	};
 }
 ----
+
+== https://adventofcode.com/2023/day/8[Day 8]
+
+Again a brute force attempt... I had the actual solution in mind, while writing the code.
+To use the least common mulitplier sounded right, but I could not logically apply it the the complete list of instructions.
+The main thing is, that no own says that you will always go the same nodes when you reached an end node.
+That's why it is not obvious to use the LCM algorithm, but it worked.
+
+First I used a brute-force way, but taking up more than 10 minutes, it was clear, that this can not be right, so I tried the LCM than and it gave the correct answer.
