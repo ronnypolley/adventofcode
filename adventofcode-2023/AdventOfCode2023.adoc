@@ -166,3 +166,8 @@ The main thing is, that no own says that you will always go the same nodes when 
 That's why it is not obvious to use the LCM algorithm, but it worked.
 
 First I used a brute-force way, but taking up more than 10 minutes, it was clear, that this can not be right, so I tried the LCM than and it gave the correct answer.
+
+The issue with the LCM is, that one assumption is missing in the description:
+
+NOTE: That the length of all ways from `A->Z->Z...->Z` are from the same length for each starting point `A`. 
+This is essential for this approach. Else there might be ways that change in length and so, we can not just compute the first length and use it as the input for the LCM.
