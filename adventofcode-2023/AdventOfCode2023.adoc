@@ -171,3 +171,42 @@ The issue with the LCM is, that one assumption is missing in the description:
 
 NOTE: That the length of all ways from `A->Z->Z...->Z` are from the same length for each starting point `A`. 
 This is essential for this approach. Else there might be ways that change in length and so, we can not just compute the first length and use it as the input for the LCM.
+
+
+== https://adventofcode.com/2023/day/15[Day 15]
+
+This was an easy one again. Just took me some time, as I didn't read the "manual" completely :smirk:.
+
+There is nothing special to this and it's relative small amount of code.
+The first part can be written as a one liner. Just splitted the input parsing from the computation.
+The hash function is also straight forward for any functional driven language.
+
+[source, java]
+----
+private static int hashAlgorithm(String value) {
+	return value.codePoints().reduce(0, (left, right) -> ((left + right) * 17) % 256);
+}
+----
+
+Part 2 has a little more to it, but the main functionality is encapsulated in the following code:
+
+[source, java]
+----
+strings.forEach(l -> {
+	int hash = hashAlgorithm(l.name);
+	hashmap.computeIfAbsent(hash, k -> new LinkedList<>());
+	if (l.shouldRemove()) {
+		hashmap.get(hash).remove(l);
+	} else if (hashmap.get(hash).contains(l)) {
+		hashmap.get(hash).set(hashmap.get(hash).indexOf(l), l);
+	} else {
+		hashmap.get(hash).add(l);
+	}
+});
+----
+
+Here the three cases of the task can be seen (the deletion, the change and the adding).
+As I used `record` classes for this, I had to exchange the whole object instead of just changing the focal length.
+I also implemented the hash functionality on this record, so that I can use it for the `contains` and `indexOf` functions. In the default implementation, the focal length is used for the `hashCode`. 
+But the lenses should be the same, if their names are the same.
+
