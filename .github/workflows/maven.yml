@@ -25,7 +25,7 @@ jobs:
       run: mvn -B verify -ntp --file pom.xml
 
     - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@v4.0.2 
+      uses: advanced-security/maven-dependency-submission-action@v4.0.3 
 
     - name: Run SonarQube analysis
       run: mvn -ntp -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.projectKey=ronnypolley_adventofcode
