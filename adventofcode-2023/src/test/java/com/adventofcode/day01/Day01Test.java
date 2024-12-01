@@ -35,7 +35,7 @@ class Day01Test {
 		// end::replace[]
 	}
 
-	private int combineDigits(Stream<String> file) throws IOException {
+	private int combineDigits(Stream<String> file) {
 		return file.map(line -> line.replaceAll("[a-z]", "")).map(line -> line.length() > 1 ? line : line + line)
 				.mapToInt(line -> Integer
 						.parseInt(line.length() <= 2 ? line : line.substring(0, 1) + line.substring(line.length() - 1)))
