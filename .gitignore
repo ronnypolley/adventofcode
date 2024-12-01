@@ -20,3 +20,6 @@ buildNumber.properties
 
 # do not commit the private inputs files
 day[0-9][0-9]input
+
+#intellij
+.idea/
