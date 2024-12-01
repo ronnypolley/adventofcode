@@ -38,7 +38,7 @@ class Day01Test {
 	private int combineDigits(Stream<String> file) {
 		return file.map(line -> line.replaceAll("[a-z]", "")).map(line -> line.length() > 1 ? line : line + line)
 				.mapToInt(line -> Integer
-						.parseInt(line.length() <= 2 ? line : line.substring(0, 1) + line.substring(line.length() - 1)))
+						.parseInt(line.length() <= 2 ? line : line.charAt(0) + line.substring(line.length() - 1)))
 				.sum();
 	}
 
