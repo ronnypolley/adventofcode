@@ -3,8 +3,6 @@ package com.adventofcode.day02;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.adventofcode.day02.Day2Game.CubesRevealed;
-
 public record Day2Game(int id, List<CubesRevealed> rounds) {
 
 	// tag::part1[]

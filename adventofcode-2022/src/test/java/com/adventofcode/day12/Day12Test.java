@@ -72,7 +72,7 @@ class Day12Test {
 	}
 
 	private void initMap(List<String> input, List<Position> startPositions, AtomicReference<Position> atomicEndposition,
-			char[][] map, List<Character> possibleStartingPositions) throws IOException {
+			char[][] map, List<Character> possibleStartingPositions) {
 		for (var i = 0; i < input.size(); i++) {
 			for (var j = 0; j < input.get(0).length(); j++) {
 				if (possibleStartingPositions.contains(input.get(i).charAt(j))) {
@@ -89,7 +89,7 @@ class Day12Test {
 	}
 
 	private char[][] createInitialMap(List<String> lines) {
-		var map = new char[lines.size() + 2][lines.get(0).length() + 2];
+		var map = new char[lines.size() + 2][lines.getFirst().length() + 2];
 		for (var i = 0; i < map.length; i++) {
 			for (var j = 0; j < map[0].length; j++) {
 				map[i][j] = 'z';

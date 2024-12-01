@@ -39,21 +39,21 @@ class Day05Test {
 	}
 
 	private List<Seed> prepareSeedsPart1(List<String> lines) {
-		var seeds = Arrays.stream(lines.get(0).replace("seeds: ", "").split(" ")).map(Long::parseLong).map(Seed::new)
+		var seeds = Arrays.stream(lines.getFirst().replace("seeds: ", "").split(" ")).map(Long::parseLong).map(Seed::new)
 				.toList();
 
-		lines.remove(0);
+		lines.removeFirst();
 		return seeds;
 	}
 
 	private List<Seed2> prepareSeedsPart2(List<String> lines) {
-		var split = lines.get(0).replace("seeds: ", "").split(" ");
+		var split = lines.getFirst().replace("seeds: ", "").split(" ");
 		var seeds = new ArrayList<Seed2>();
 		for (var i = 0; i < split.length; i += 2) {
 			seeds.add(new Seed2(Long.parseLong(split[i]), Long.parseLong(split[i + 1])));
 		}
 
-		lines.remove(0);
+		lines.removeFirst();
 		return seeds;
 	}
 
@@ -77,12 +77,12 @@ class Day05Test {
 	}
 
 	private long computeLowestLocation(Map<MapperEnum, Mapper> mapper, List<Seed> seeds) {
-		return seeds.stream().mapToLong(s -> mapper.get(MapperEnum.humidity2Location)
-				.computeNumber(mapper.get(MapperEnum.temp2Humidity).computeNumber(mapper.get(MapperEnum.light2Temp)
-						.computeNumber(mapper.get(MapperEnum.water2Light)
-								.computeNumber(mapper.get(MapperEnum.fertilizer2Water)
-										.computeNumber(mapper.get(MapperEnum.soilTofertilizer).computeNumber(
-												mapper.get(MapperEnum.seed2Soil).computeNumber(s.seedNumber))))))))
+		return seeds.stream().mapToLong(s -> mapper.get(MapperEnum.HUMIDITY_2_LOCATION)
+				.computeNumber(mapper.get(MapperEnum.TEMP_2_HUMIDITY).computeNumber(mapper.get(MapperEnum.LIGHT_2_TEMP)
+						.computeNumber(mapper.get(MapperEnum.WATER_2_LIGHT)
+								.computeNumber(mapper.get(MapperEnum.FERTILIZER_2_WATER)
+										.computeNumber(mapper.get(MapperEnum.SOIL_TO_FERTILIZER).computeNumber(
+												mapper.get(MapperEnum.SEED_2_SOIL).computeNumber(s.seedNumber))))))))
 				.min().getAsLong();
 	}
 
@@ -91,13 +91,13 @@ class Day05Test {
 		for (Seed2 seed2 : seeds) {
 			var seedMin = Long.MAX_VALUE;
 			for (var i = seed2.seedNumber; i < seed2.seedNumber + seed2.length; i++) {
-				var location = mapper.get(MapperEnum.humidity2Location)
-						.computeNumber(mapper.get(MapperEnum.temp2Humidity)
-								.computeNumber(mapper.get(MapperEnum.light2Temp)
-										.computeNumber(mapper.get(MapperEnum.water2Light)
-												.computeNumber(mapper.get(MapperEnum.fertilizer2Water).computeNumber(
-														mapper.get(MapperEnum.soilTofertilizer).computeNumber(
-																mapper.get(MapperEnum.seed2Soil).computeNumber(i)))))));
+				var location = mapper.get(MapperEnum.HUMIDITY_2_LOCATION)
+						.computeNumber(mapper.get(MapperEnum.TEMP_2_HUMIDITY)
+								.computeNumber(mapper.get(MapperEnum.LIGHT_2_TEMP)
+										.computeNumber(mapper.get(MapperEnum.WATER_2_LIGHT)
+												.computeNumber(mapper.get(MapperEnum.FERTILIZER_2_WATER).computeNumber(
+														mapper.get(MapperEnum.SOIL_TO_FERTILIZER).computeNumber(
+																mapper.get(MapperEnum.SEED_2_SOIL).computeNumber(i)))))));
 				if (seedMin > location) {
 					seedMin = location;
 				}
@@ -107,7 +107,7 @@ class Day05Test {
 		return seeds.stream().mapToLong(s -> s.locationNumber).min().getAsLong();
 	}
 
-	class Seed {
+	static class Seed {
 		long seedNumber;
 
 		public Seed(long i) {
@@ -115,7 +115,7 @@ class Day05Test {
 		}
 	}
 
-	class Seed2 {
+	static class Seed2 {
 		long seedNumber;
 		long length;
 		long locationNumber;
@@ -127,11 +127,11 @@ class Day05Test {
 	}
 
 	enum MapperEnum {
-		seed2Soil("seed-to-soil"), soilTofertilizer("soil-to-fertilizer"), fertilizer2Water("fertilizer-to-water"),
-		water2Light("water-to-light"), light2Temp("light-to-temperature"), temp2Humidity("temperature-to-humidity"),
-		humidity2Location("humidity-to-location");
+		SEED_2_SOIL("seed-to-soil"), SOIL_TO_FERTILIZER("soil-to-fertilizer"), FERTILIZER_2_WATER("fertilizer-to-water"),
+		WATER_2_LIGHT("water-to-light"), LIGHT_2_TEMP("light-to-temperature"), TEMP_2_HUMIDITY("temperature-to-humidity"),
+		HUMIDITY_2_LOCATION("humidity-to-location");
 
-		String key;
+		final String key;
 
 		MapperEnum(String string) {
 			this.key = string;
@@ -142,7 +142,7 @@ class Day05Test {
 		}
 	}
 
-	class Mapper {
+	static class Mapper {
 		public Mapper(MapperEnum findByKey) {
 			id = findByKey;
 		}
@@ -156,7 +156,7 @@ class Day05Test {
 		List<Source2Dest> mappingList = new ArrayList<>();
 
 		long computeNumber(long seedNumber) {
-			var computeNumber = -1L;
+			long computeNumber;
 			for (Source2Dest source2Dest : mappingList) {
 				computeNumber = source2Dest.computeNumber(seedNumber);
 				if (computeNumber >= 0L) {
@@ -166,7 +166,7 @@ class Day05Test {
 			return seedNumber;
 		}
 
-		class Source2Dest {
+		static class Source2Dest {
 			long source;
 			long dest;
 			long length;
