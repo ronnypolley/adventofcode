@@ -18,5 +18,6 @@ Started in 2022 with my collegues from https://www.itsonix.eu[IT Sonix Custom De
 
 === Links for the journals of each year
 - {url-repo}/adventofcode-2023/AdventOfCode2023.adoc[Advent of Code 2023]
+- {url-repo}/adventofcode-2024/AdventOfCode2024.adoc[Advent of Code 2024]
 
 // Test signed commits
