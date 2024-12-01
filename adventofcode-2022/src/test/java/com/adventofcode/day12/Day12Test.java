@@ -12,6 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.IntStream;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import com.adventofcode.junit.extension.AdventOfCodeDailySource;
@@ -29,7 +30,7 @@ class Day12Test {
 
 		var min = computePath(startPositions, atomicEndposition, map).min();
 
-		AdventOfCodeAssertion.assertAdventOfCode(file, 31, min.getAsInt());
+		AdventOfCodeAssertion.assertAdventOfCode(file, 31, min.orElseThrow());
 	}
 
 	@ParameterizedTest
@@ -42,7 +43,7 @@ class Day12Test {
 
 		var min = computePath(startPositions, atomicEndposition, map).min();
 
-		AdventOfCodeAssertion.assertAdventOfCode(file, 29, min.getAsInt());
+		AdventOfCodeAssertion.assertAdventOfCode(file, 29, min.orElseThrow());
 	}
 
 	private IntStream computePath(List<Position> startPositions, AtomicReference<Position> atomicEndposition,
@@ -74,7 +75,7 @@ class Day12Test {
 	private void initMap(List<String> input, List<Position> startPositions, AtomicReference<Position> atomicEndposition,
 			char[][] map, List<Character> possibleStartingPositions) {
 		for (var i = 0; i < input.size(); i++) {
-			for (var j = 0; j < input.get(0).length(); j++) {
+			for (var j = 0; j < input.getFirst().length(); j++) {
 				if (possibleStartingPositions.contains(input.get(i).charAt(j))) {
 					startPositions.add(new Position(j + 1, i + 1));
 					map[i + 1][j + 1] = 'a';
@@ -99,11 +100,9 @@ class Day12Test {
 	}
 
 	record Position(int x, int y) {
-
 		List<Position> getNewPositions() {
-			return List
-					.of(new Position(x - 1, y), new Position(x + 1, y), new Position(x, y - 1), new Position(x, y + 1))
-					.stream().filter(pos -> pos.x != 0).filter(pos -> pos.y != 0).toList();
+			return Stream.of(new Position(x - 1, y), new Position(x + 1, y), new Position(x, y - 1), new Position(x, y + 1))
+                .filter(pos -> pos.x != 0).filter(pos -> pos.y != 0).toList();
 		}
 	}
 

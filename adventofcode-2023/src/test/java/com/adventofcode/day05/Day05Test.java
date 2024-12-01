@@ -83,7 +83,7 @@ class Day05Test {
 								.computeNumber(mapper.get(MapperEnum.FERTILIZER_2_WATER)
 										.computeNumber(mapper.get(MapperEnum.SOIL_TO_FERTILIZER).computeNumber(
 												mapper.get(MapperEnum.SEED_2_SOIL).computeNumber(s.seedNumber))))))))
-				.min().getAsLong();
+				.min().orElseThrow();
 	}
 
 	private long computeLowestLocation2(Map<MapperEnum, Mapper> mapper, List<Seed2> seeds) {
@@ -104,7 +104,7 @@ class Day05Test {
 			}
 			seed2.locationNumber = seedMin;
 		}
-		return seeds.stream().mapToLong(s -> s.locationNumber).min().getAsLong();
+		return seeds.stream().mapToLong(s -> s.locationNumber).min().orElseThrow();
 	}
 
 	static class Seed {
@@ -138,7 +138,7 @@ class Day05Test {
 		}
 
 		static MapperEnum findByKey(String key) {
-			return Arrays.stream(values()).filter(s -> key.contains(s.key)).findFirst().get();
+			return Arrays.stream(values()).filter(s -> key.contains(s.key)).findFirst().orElseThrow();
 		}
 	}
 
