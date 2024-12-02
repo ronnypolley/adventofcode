@@ -1,7 +1,23 @@
 = Journal AoC 2023
 :sourcepath: src/test/java
 
-== https://adventofcode.com/2023/day/1[Day 1]
+== https://adventofcode.com/2024/day/1[Day 1]
 
 There was nothing special about this exercise.
 Didn't optimize the computation for the second part, as the input was not that big.
+
+== https://adventofcode.com/2024/day/2[Day 2]
+
+For the distance comparison, I use a little function with a reduce.
+As I need to drag the error to the end, I use `Integer.MAX_VALUE` to be sure, that the distance is the highest possible.
+
+[source, java, indent=0]
+----
+private boolean distantCheck(List<Integer> list) {
+    return list.stream().reduce((n, m) -> (Math.abs(n-m) <= 3 && Math.abs(n-m) > 0)? m : Integer.MAX_VALUE).filter(n -> n == Integer.MAX_VALUE).isEmpty();
+  }
+----
+
+To check, if it is always ascending or descending, an equals check to a sorted and sorted-reversed input list is done.
+
+For part 2 I used an `IntStream.range()` to get all possible indices, which have to be removed and used the manipulated list on the same checks as in part 1.
