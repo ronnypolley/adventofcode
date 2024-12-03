@@ -21,3 +21,35 @@ private boolean distantCheck(List<Integer> list) {
 To check, if it is always ascending or descending, an equals check to a sorted and sorted-reversed input list is done.
 
 For part 2 I used an `IntStream.range()` to get all possible indices, which have to be removed and used the manipulated list on the same checks as in part 1.
+
+
+== https://adventofcode.com/2024/day/3[Day 3]
+
+Using some regex, this is quite simple.
+For getting the needed substrings I used `(mul\\(\\d+,\\d+\\))` for the first part and `(mul\\(\\d+,\\d+\\))|(do\\(\\))|(don't\\(\\))` for the second one.
+It was necessary to know, that the input should be treated as one line, but the file itself had multiple ones.
+With this in mind, you can just `flatMap` the internal `List` s and get one `List` with the elements to process.
+
+[source, java, indent=0]
+----
+Files.readAllLines(fileName).stream().map(string -> extractCorrectInstructions(string, pattern)).flatMap(Collection::stream).mapToLong(s -> processItem(s, compute)).sum()
+----
+
+For part 2, I just switch on and off the processing with an `AtomicBoolean`:
+
+[source, java, indent=0]
+----
+private long processItem(String s, AtomicBoolean compute) {
+    return switch (s) {
+      case "don't()" -> {
+        compute.set(false);
+        yield 0;
+      }
+      case "do()" -> {
+        compute.set(true);
+        yield 0;
+      }
+      default -> multiplyIfNeeded(compute.get(), s);
+    };
+}
+----
