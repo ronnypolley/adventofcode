@@ -123,18 +123,20 @@ class Day04Test {
   }
 
   private long findXmas2(String[][] array, int i, int j) {
-    if (Stream.of(xmas(array, i-1, i, i+1, j-1, j, j+1),
-        xmas(array, i+1, i, i-1, j-1, j, j+1)).filter(string -> "MAS".equals(string) || "SAM".equals(string)).count() == 2) {
+    if (Stream.of(xmas(array, new int[]{i-1, i, i+1}, new int[]{j-1, j, j+1}),
+        xmas(array, new int[]{i+1, i, i-1}, new int[]{j-1, j, j+1})).filter(string -> "MAS".equals(string) || "SAM".equals(string)).count() == 2) {
       return 1;
     }
 
     return 0;
   }
 
-  private String xmas(String[][] array, int i, int i1, int i2, int j, int j1, int j2) {
-    if (i < 0 || j < 0 || i2 <0 || i >= array.length || i2 >= array.length || j2 >= array[i].length) {
+
+  private String xmas(String[][] array, int[] is, int[] js) {
+    if (is[0] < 0 || js[0] < 0 || is[2] < 0 || is[0] >= array.length || is[2] >= array.length || js[2] >= array[is[0]].length) {
       return "";
     }
-    return array[i][j].concat(array[i1][j1]).concat(array[i2][j2]);
+    return array[is[0]][js[0]].concat(array[is[1]][js[1]]).concat(array[is[2]][js[2]]);
   }
+
 }
