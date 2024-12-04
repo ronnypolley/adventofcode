@@ -8,7 +8,7 @@
 	
 	<artifactId>adventofcode-2021</artifactId>
 	
-	<name>Advent Of Code 2021</name>
+	<name>Advent of Code 2021</name>
 	<description>Solving the 2021 puzzles</description>
 	
 	<dependencies>
