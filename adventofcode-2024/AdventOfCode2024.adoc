@@ -53,3 +53,54 @@ private long processItem(String s, AtomicBoolean compute) {
     };
 }
 ----
+
+
+== https://adventofcode.com/2024/day/3[Day 3]
+
+The first, more complex one. I didn't find an easy solution for part one yet.
+Just stupid "go in any direction" was the solution, with 8 nearly similar methods for each direction.
+
+* [ ] need to optimize this. (https://github.com/ronnypolley/adventofcode/issues/65[#65])
+
+Part 2 was actually way easier.
+
+[source, java, indent=0]
+----
+private String xmas(String[][] array, int i, int i1, int i2, int j, int j1, int j2) {
+    if (i < 0 || j < 0 || i2 <0 || i >= array.length || i2 >= array.length || j2 >= array[i].length) {
+      return "";
+    }
+    return array[i][j].concat(array[i1][j1]).concat(array[i2][j2]);
+}
+----
+
+Actually, this can als be simplified by an `Array`/`List` of indices.
+
+
+[source, java, indent=0]
+----
+private String xmas(String[][] array, int[] is, int[] js) {
+    if (i[0] < 0 || j[0] < 0 || i[2] < 0 || i[0] >= array.length || i[2] >= array.length || j[2] >= array[i[0]].length) {
+      return "";
+    }
+    return array[i[0]][j[j]].concat(array[i[1]][j[1]]).concat(array[i[2]][j[2]]);
+}
+----
+
+Not sure, if I would you this in an actual project, as the readability lacks a lot, but it's okay for tihs here.
+
+This is called from:
+
+[source, java, indent=0]
+----
+private long findXmas2(String[][] array, int i, int j) {
+  if (Stream.of(xmas(array, new int[]{i-1, i, i+1}, new int[]{j-1, j, j+1}),
+       xmas(array, new int[]{i+1, i, i-1}, new int[]{j-1, j, j+1})).filter(string -> "MAS".equals(string) || "SAM".equals(string)).count() == 2) {
+    return 1;
+  }
+
+  return 0;
+}
+----
+
+Only if I have "MAS" or "SAM" in both of the strings, I will mark it as found.
