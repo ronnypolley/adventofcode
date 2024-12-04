@@ -1,4 +1,4 @@
-package com.adventofcode;
+package com.adventofcode.day02;
 
 import com.adventofcode.junit.extension.AdventOfCodeDailySource;
 import com.adventofcode.junit.util.AdventOfCodeAssertion;

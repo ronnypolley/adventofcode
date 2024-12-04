@@ -1,6 +1,5 @@
-package com.adventofcode;
+package com.adventofcode.day01;
 
-import com.adventofcode.day01.TwoLists;
 import com.adventofcode.junit.extension.AdventOfCodeDailySource;
 import com.adventofcode.junit.util.AdventOfCodeAssertion;
 import java.io.IOException;
