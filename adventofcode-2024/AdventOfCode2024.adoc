@@ -55,7 +55,7 @@ private long processItem(String s, AtomicBoolean compute) {
 ----
 
 
-== https://adventofcode.com/2024/day/3[Day 3]
+== https://adventofcode.com/2024/day/4[Day 4]
 
 The first, more complex one. I didn't find an easy solution for part one yet.
 Just stupid "go in any direction" was the solution, with 8 nearly similar methods for each direction.
@@ -104,3 +104,39 @@ private long findXmas2(String[][] array, int i, int j) {
 ----
 
 Only if I have "MAS" or "SAM" in both of the strings, I will mark it as found.
+
+== https://adventofcode.com/2024/day/5[Day 5]
+
+This was a pleasant one. You could create nice classes do deal with the input.
+
+For part 1, we only have to apply the rules to the list of pages, where all before have to be before the after.
+This can be easily done with a stream.
+
+[source, java, indent=0]
+----
+public boolean applyRules(List<BookPageOrder> rules) {
+    return rules.stream().allMatch(rule -> updates.indexOf(rule.getBefore()) <= updates.indexOf(rule.getAfter()) || !updates.contains(rule.getAfter()));
+}
+----
+
+Part 2 could be solved brute force with permuting all page lists, but this is not performant at all.
+It's better to use the sorting of lists with a special `Comparator`:
+
+[source, java, indent=0]
+----
+public BookUpdate reorder(List<BookPageOrder> orders) {
+  ArrayList<Integer> list = new ArrayList<>(updates);
+
+  list.sort((i1, i2) -> {
+    // For the reordering, we only need the rules, where both values are included.
+    // All other cases does not impact the sorting of these two values.
+    Optional<BookPageOrder> rule =
+      orders.stream()
+          .filter(o -> (o.before == i1 && o.after == i2) || (o.before == i2 && o.after == i1))
+          .findFirst();
+    return rule.map(bookPageOrder -> bookPageOrder.before == i1 ? -1 : 1).orElse(0);
+  });
+}
+----
+
+As the ordering is only affected by rules, where both elements are present and this can only be possible for one rule, we can reduce the rules list to this one rule and than check, the order.
