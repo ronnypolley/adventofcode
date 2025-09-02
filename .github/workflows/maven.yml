@@ -12,7 +12,7 @@ jobs:
     permissions: 
       contents: write
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
       with:
         fetch-depth: 0
     
@@ -27,7 +27,7 @@ jobs:
       run: mvn -B verify -ntp --file pom.xml
 
     - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@v5.0.0 
+      uses: advanced-security/maven-dependency-submission-action@b275d12641ac2d2108b2cbb7598b154ad2f2cee8 # v5.0.0 
 
     - name: Run SonarQube analysis
       run: mvn -ntp -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.projectKey=ronnypolley_adventofcode
